@@ -10,11 +10,15 @@ function collapseRight (row) {
     return num > 0;
   })
 
-  if (filtered.length == 1) {
+  var rowSum = filtered.reduce(function (acc, num) {
+    return acc + num;
+  }, 0)
+
+  if (filtered.length >= 1) {
     row = [0,0,0];
-    row.push(filtered[0])
+    row.push(rowSum);
   }
-  // else if (row.length > 3) {
+  // else if (filtered.length > 3) {
   //   row = 'pizza';
   // }
   return row;
