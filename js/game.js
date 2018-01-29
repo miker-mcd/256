@@ -12,9 +12,20 @@
 
 // const combine = function (line) {
   // Input: array of four numbers
-  // if array contains all zeros, return array
+  // if line contains all zeros, return array
+  // if nums in line equal to 2, replace last slot with 2
   // Output: a new array of four numbers with identical nums added
 // }
+
+const combine = function (line) {
+  var sum = line.reduce(function (acc, val) {
+    return acc + val;
+  }, 0);
+  if (sum == 2) {
+    line = [0, 0, 0, 2];
+  }
+  return line;
+}
 
 const Game = function (string) {
   var board = '0000000000000000';
