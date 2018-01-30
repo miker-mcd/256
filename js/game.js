@@ -12,9 +12,27 @@ function collapseRight (row) {
 
   var rowSum = filtered.reduce(function (acc, num) {
     return acc + num;
-  }, 0)
+  }, 0) // => 8
 
-  if (filtered.length > 2) {
+  if (filtered.length > 3) {
+    // Input: [2,2,2,2]
+    // set up check
+    var check = filtered[0];
+    // iterate through line after first num
+      // if check equals num
+        // add check and num => 4
+        // replace num with sum => [2,4,2,2]
+        // remove check => [4,2,2]
+      // end if
+      // reassign check to i => 2
+    // end loop => [4,4]
+    // subtract the row length from the new filtered length to get the number of zeros to buffer
+    // add zeros to front of filtered array
+    // reassign the row to the filtered collection
+    // Output: [0,0,4,4]
+  }
+
+  else if (filtered.length > 2) {
     var check = filtered[0];
     for (let i = 1;i < filtered.length;i++) {
       if (check == filtered[i]) {
