@@ -14,13 +14,27 @@ function collapseRight (row) {
     return acc + num;
   }, 0)
 
-  if (filtered.length >= 1) {
+  if (filtered.length > 2) {
+    var check = filtered[0];
+    for (let i = 1;i < filtered.length;i++) {
+      if (check == filtered[i]) {
+        var sumOfPair = check + filtered[i];
+        filtered.splice(i, 1, sumOfPair);
+        filtered.splice(filtered.indexOf(check), 1);
+      } else {
+        check = filtered[i];
+      }
+    }
+    var zerosToAdd = row.length - filtered.length;
+    for (let i = 0;i < zerosToAdd;i++) {
+      filtered.unshift(0);
+    }
+    row = filtered;
+  }
+  else if (filtered.length >= 1) {
     row = [0,0,0];
     row.push(rowSum);
   }
-  // else if (filtered.length > 3) {
-  //   row = 'pizza';
-  // }
   return row;
 }
 
