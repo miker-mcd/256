@@ -15,21 +15,34 @@ function collapseRight (row) {
   }, 0) // => 8
 
   if (filtered.length > 3) {
-    // Input: [2,2,2,2]
+    // Input: [2,4,4,2]
     // set up check
     var check = filtered[0];
     // iterate through line after first num
+    for (let i = 1;i < filtered.length;i++) {
       // if check equals num
-        // add check and num => 4
-        // replace num with sum => [2,4,2,2]
-        // remove check => [4,2,2]
+      if (check == filtered[i]) {
+        // add check and num => 8
+        var sumOfPair = check + filtered[i];
+        // replace num with sum => [2,4,8,2]
+        filtered.splice(i, 1, sumOfPair);
+        // remove check => [2,8,2]
+        filtered.splice(filtered.indexOf(check), 1)
       // end if
+      }
       // reassign check to i => 2
-    // end loop => [4,4]
+      check = filtered[i];
+    // end loop => [2,8,2]
+    }
     // subtract the row length from the new filtered length to get the number of zeros to buffer
+    var zerosToAdd = row.length - filtered.length;
     // add zeros to front of filtered array
+    for (i = 0;i < zerosToAdd;i++) {
+      filtered.unshift(0);
+    }
     // reassign the row to the filtered collection
-    // Output: [0,0,4,4]
+    row = filtered;
+    // Output: [0,2,8,2]
   }
 
   else if (filtered.length > 2) {
