@@ -1,7 +1,8 @@
 $(document).ready(function() {
-  var game = new Game('2020');
-  $(".game").append(game.board);
+  var game = new Game('0000202022402442');
+  $(".game").append(game.toString());
   Mousetrap.bind('right', function () {
-    $('.game').html(game.move('right'));
+    game = new Game(game.move('right'));
+    $('.game').html(game.toString());
   });
 });
