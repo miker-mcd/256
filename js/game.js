@@ -1,3 +1,6 @@
+// TODO
+function spawnBlock (newboard) {}
+
 function collapseRight (board) {
   var newBoard = [];
 
@@ -78,6 +81,7 @@ function collapseRight (board) {
   return newBoard.join('');
 }
 
+// TODO
 const Board = function (str) {
   // Generate a string of 16 zeros
   // => '0000000000000000';
