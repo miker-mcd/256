@@ -1,10 +1,3 @@
-// const collapseRight = function (line) {
-  // Input: array of four numbers
-  // if line contains all zeros, return array
-  // if nums in line equal to 2, replace last slot with 2
-  // Output: a new array of four numbers with identical nums added
-// }
-
 function collapseRight (row) {
   var filtered = row.filter(function (num) {
     return num > 0;
@@ -82,16 +75,17 @@ const Game = function (str) {
     return parseInt(char);
   }); // || new Board();
 
-  this.toString = function () {}
-    // Use toString() to split string into four lines of four characters
-    // => '0000
-        // 2020
-        // 0000
-        // 0000'
+  this.toString = function () {
+    var ret = [];
+    for(let i = 0; i < str.length; i += 4) {
+       ret.push(str.substr(i, 4))
+    }
+    return ret.join('\n');
+  }
 
   this.move = function (direction) {}
 }
 
 var game = new Game('0000202000000000');
 // var game = new Game();
-console.log(game)
+console.log(game.toString())
