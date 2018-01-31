@@ -1,6 +1,6 @@
 function collapseRight (row) {
-  row = row.split().map(function (char) {
-    return parseInt(char)
+  row = row.split('').map(function (char) {
+    return parseInt(char, 10);
   })
 
   var filtered = row.filter(function (num) {
@@ -75,9 +75,9 @@ const Board = function (str) {
 }
 
 const Game = function (str) {
-  this.board = str.split().map(function (char) {
-    return parseInt(char)
-  }).join()
+  this.board = str.split('').map(function (char) {
+    return parseInt(char, 10);
+  }).join() // => '2020'
   // }); || new Board();
 
   this.toString = function () {
@@ -94,5 +94,3 @@ const Game = function (str) {
     }
   }
 }
-
-// var game = new Game();
