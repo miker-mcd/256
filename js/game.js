@@ -1,4 +1,8 @@
 function collapseRight (row) {
+  row = row.split().map(function (char) {
+    return parseInt(char)
+  })
+
   var filtered = row.filter(function (num) {
     return num > 0;
   })
@@ -59,7 +63,7 @@ function collapseRight (row) {
     row = [0,0,0];
     row.push(rowSum);
   }
-  return row;
+  return row.join();
 }
 
 const Board = function (str) {
@@ -72,20 +76,23 @@ const Board = function (str) {
 
 const Game = function (str) {
   this.board = str.split().map(function (char) {
-    return parseInt(char);
-  }); // || new Board();
+    return parseInt(char)
+  }).join()
+  // }); || new Board();
 
   this.toString = function () {
     var ret = [];
     for(let i = 0; i < str.length; i += 4) {
        ret.push(str.substr(i, 4))
     }
-    return ret.join('\n');
+    return ret.join('<br>');
   }
 
-  this.move = function (direction) {}
+  this.move = function (direction) {
+    if (direction == 'right') {
+      return collapseRight(this.board);
+    }
+  }
 }
 
-var game = new Game('0000202000000000');
 // var game = new Game();
-console.log(game.toString())
