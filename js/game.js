@@ -1,5 +1,36 @@
-// TODO
-function spawnBlock (newboard) {}
+function spawnBlock(newBoard) {
+  // Input: string of nums
+    // Change string of nums into array of nums
+    var board = newBoard.split('').map(function (char) {
+      return parseInt(char, 10);
+    }) // => [0,0,0,0,2,0,2,0,0,0,0,0]
+    // function: pick a random slot between 0 and the length of the array
+    var blocks = [2, 4];
+    function insertBlock(board) {
+      let randomIndex = Math.floor(Math.random() * Math.floor(board.length + 1));
+      let newBlock = blocks[(Math.floor(Math.random() * Math.floor(2)))];
+      // base case: if length of array is 0 return newboard array
+      if (board.length < 1) {
+        return board;
+      }
+      // if slot is empty
+      if (board[randomIndex] < 2) {
+        // replace slot with a 2 or 4
+        return board.splice(randomIndex, 1, newBlock)
+        // return array
+        // return board;
+      }
+      // else not empty
+      else {
+        // run function with value at slot removed
+        insertBlock(board.splice(randomIndex, 1))
+      }
+    }
+  // Output: string of nums with an empty space replaced with a 2 or 4
+  newBoard = insertBlock(board);
+  console.log(newBoard);
+  return newBoard.join('');
+}
 
 function collapseRight (board) {
   var newBoard = [];
@@ -78,7 +109,8 @@ function collapseRight (board) {
     }
     newBoard.push(row);
   })
-  return newBoard.join('');
+  // return newBoard.join('');
+  return spawnBlock(newBoard.join(''));
 }
 
 // TODO
