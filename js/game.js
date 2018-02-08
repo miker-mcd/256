@@ -1,35 +1,23 @@
 function spawnBlock(board) {
-  // Input: string of nums
-    // Change string of nums into array of nums
     board = board.split('').map(function (char) {
       return parseInt(char, 10);
     }) // => [0,0,0,0,0,0,0,4,0,0,4,4,0,2,8,2]
-    // function: pick a random slot between 0 and the length of the array
     var blocks = [2, 4];
     function insertBlock(board) {
-      debugger
+      // debugger
       let randomIndex = Math.floor(Math.random() * Math.floor(board.length));
       let newBlock = blocks[(Math.floor(Math.random() * Math.floor(2)))];
-      // base case: if length of array is 0 return newboard array
-      if (board.length < 1) {
-        return board;
-      }
-      // if slot is empty
+
       if (board[randomIndex] < 2) {
-        // replace slot with a 2 or 4
         board.splice(randomIndex, 1, newBlock)
-        // return array
         board = board.join('');
         return board;
       }
-      // else not empty
       else {
-        // run function with value at slot removed
         // board.splice(randomIndex, 1)
         return insertBlock(board)
       }
     }
-  // Output: string of nums with an empty space replaced with a 2 or 4
   var newBoard = insertBlock(board);
   // return newBoard.join('');
   return newBoard;
@@ -44,6 +32,7 @@ function collapseRight (board) {
   }
 
   splitBoard.forEach(function (row) {
+    debugger
     row = row.split('').map(function (char) {
       return parseInt(char, 10);
     }) // => [2,0,2,0]
@@ -57,34 +46,20 @@ function collapseRight (board) {
     }, 0) // => 4
 
     if (filtered.length > 3) {
-      // Input: [2,4,4,2]
-      // set up check
       var check = filtered[0];
-      // iterate through line after first num
       for (let i = 1;i < filtered.length;i++) {
-        // if check equals num
         if (check == filtered[i]) {
-          // add check and num => 8
           var sumOfPair = check + filtered[i];
-          // replace num with sum => [2,4,8,2]
           filtered.splice(i, 1, sumOfPair);
-          // remove check => [2,8,2]
           filtered.splice(filtered.indexOf(check), 1)
-        // end if
         }
-        // reassign check to i => 2
         check = filtered[i];
-      // end loop => [2,8,2]
       }
-      // subtract the row length from the new filtered length to get the number of zeros to buffer
       var zerosToAdd = row.length - filtered.length;
-      // add zeros to front of filtered array
-      for (i = 0;i < zerosToAdd;i++) {
+      for (let i = 0;i < zerosToAdd;i++) {
         filtered.unshift(0);
       }
-      // reassign the row to the filtered collection
       row = filtered.join('');
-      // Output: [0,2,8,2]
     }
 
     else if (filtered.length > 2) {
@@ -105,15 +80,28 @@ function collapseRight (board) {
       row = filtered.join('');
     }
 
-    else if (filtered.length >= 0) {
+    else if (filtered.length > 1) {
+      if (filtered[0] == filtered[1]) {
+        filtered.splice(1, 1, rowSum);
+        filtered.shift();
+        filtered.unshift(0, 0, 0);
+        row = filtered.join('');
+      } else {
+        filtered.unshift(0, 0);
+        row = filtered.join('');
+      }
+    }
+
+    // else if (filtered.length >= 0) {
+    else {
       row = [0,0,0];
       row.push(rowSum);
       row = row.join('');
     }
     newBoard.push(row);
   })
-  // return newBoard.join('');
-  return spawnBlock(newBoard.join(''));
+  newBoard = newBoard.join('');
+  return spawnBlock(newBoard);
 }
 
 // TODO
