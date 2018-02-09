@@ -44,7 +44,6 @@ const Game = function (str) {
   this.board = ret;
 
   this.toString = function () {
-    debugger
     // var ret = [];
     // for(let i = 0; i < this.board.length; i += 4) {
     //    ret.push(this.board.slice(i, i + 4))
@@ -138,11 +137,22 @@ const Game = function (str) {
     return spawnBlock(newBoard);
   }
 
+  function collapseDown(board) {
+    board = _.zip.apply(_, board);
+    board = collapseRight(board);
+    board = _.zip.apply(_, board);
+    return board;
+  }
+
   this.move = function (direction) {
     if (direction == 'right') {
       this.board = collapseRight(this.board);
       return this.board;
       // return collapseRight(this.board);
+    }
+    else if (direction == 'down') {
+      this.board = collapseDown(this.board);
+      return this.board;
     }
   }
 
