@@ -210,6 +210,13 @@ const Game = function (str) {
     return spawnBlock(newBoard);
   }
 
+  function collapseUp(board) {
+    board = _.zip.apply(_, board);
+    board = collapseLeft(board);
+    board = _.zip.apply(_, board);
+    return board;
+  };
+
   this.move = function (direction) {
     if (direction == 'right') {
       this.board = collapseRight(this.board);
@@ -222,6 +229,10 @@ const Game = function (str) {
     }
     else if (direction == 'left') {
       this.board = collapseLeft(this.board);
+      return this.board;
+    }
+    else if (direction == 'up') {
+      this.board = collapseUp(this.board);
       return this.board;
     }
   }

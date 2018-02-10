@@ -14,4 +14,8 @@ $(document).ready(function() {
     game.move('left');
     $('.game').html(game.toString());
   })
+  Mousetrap.bind('up', function () {
+    game.move('up');
+    $('.game').html(game.toString());
+  })
 });
