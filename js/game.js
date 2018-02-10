@@ -144,6 +144,72 @@ const Game = function (str) {
     return board;
   }
 
+  function collapseLeft(board) {
+    var newBoard = [];
+    board.forEach(function (row) {
+      var filtered = row.filter(function (num) {
+        return num > 0;
+      });
+      var rowSum = filtered.reduce(function (sum, num) {
+        return sum + num;
+      }, 0)
+
+      if (filtered.length > 3) {
+        var check = filtered[0];
+        for (let i = 1;i < filtered.length;i++) {
+          if (check == filtered[i]) {
+            var sumOfPair = check + filtered[i];
+            filtered.splice(i, 1, sumOfPair);
+            filtered.splice(filtered.indexOf(check), 1)
+          }
+          check = filtered[i];
+        }
+        var zerosToAdd = row.length - filtered.length;
+        for (let i = 0;i < zerosToAdd;i++) {
+          filtered.push(0);
+        }
+        row = filtered;
+      }
+
+      else if (filtered.length > 2) {
+        var check = filtered[0];
+        for (let i = 1;i < filtered.length;i++) {
+          if (check == filtered[i]) {
+            var sumOfPair = check + filtered[i];
+            filtered.splice(i, 1, sumOfPair);
+            filtered.splice(filtered.indexOf(check), 1);
+          } else {
+            check = filtered[i];
+          }
+        }
+        var zerosToAdd = row.length - filtered.length;
+        for (let i = 0;i < zerosToAdd;i++) {
+          filtered.push(0);
+        }
+        row = filtered;
+      }
+
+      else if (filtered.length > 1) {
+        if (filtered[0] == filtered[1]) {
+          filtered.splice(0, 1, rowSum);
+          filtered.pop();
+          filtered.push(0, 0, 0);
+          row = filtered;
+        } else {
+          filtered.push(0, 0);
+          row = filtered;
+        }
+      }
+
+      else if (filtered.length >= 0) {
+        row = [0,0,0];
+        row.unshift(rowSum);
+      }
+      newBoard.push(row);
+    });
+    return spawnBlock(newBoard);
+  }
+
   this.move = function (direction) {
     if (direction == 'right') {
       this.board = collapseRight(this.board);
@@ -152,6 +218,10 @@ const Game = function (str) {
     }
     else if (direction == 'down') {
       this.board = collapseDown(this.board);
+      return this.board;
+    }
+    else if (direction == 'left') {
+      this.board = collapseLeft(this.board);
       return this.board;
     }
   }
