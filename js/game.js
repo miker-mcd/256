@@ -49,7 +49,14 @@ const Game = function (str) {
     //    ret.push(this.board.slice(i, i + 4))
     // }
     // this.board = ret;
-    return this.board.join('<br>');
+    this.board[0].unshift('<p>');
+    this.board = this.board.map(function (row) {
+      return row.map(function (num) {
+        return '<span>' + num.toString() + '</span>';
+      })
+      // return row.join('<span>');
+    });
+    return this.board.join('<p>');
   }
 
   function collapseRight (board) {
