@@ -1,10 +1,22 @@
 body {
-  background-color: #f1f1f1;
+  background-color: #4D606E;
 }
 
 .game {
   margin: auto;
-  width: 50%;
-  border: 3px solid green;
+  width: 25%;
   padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #3FBAC2;
+}
+
+.tile {
+  font-family: Helvetica;
+  font-size: 2em;
+  margin: 5px;
+  color: #F5F5F5;
+  background-color: #D3D4D8;
+  padding: 3px 15px;
+  border-radius: 5px;
 }
