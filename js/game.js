@@ -23,18 +23,28 @@ function spawnBlock(board) {
   return newBoard;
 }
 
-// TODO
-const Board = function (str) {
-  // Generate a string of 16 zeros
-  // => '0000000000000000';
-
-  // Replace a 2 or 4 in two slots in the string
-  // => '0000200020000000';
+const Board = function () {
+  this.randomStart = '0000000000000000'.split('').map(function (char) {
+    return parseInt(char, 10);
+  });
+  var ret = [];
+  for (let i = 0;i < this.randomStart.length;i += 4) {
+    ret.push(this.randomStart.slice(i, i + 4))
+  }
+  var count = 2;
+  for (let j = 0;j < count;j++) {
+    spawnBlock(ret);
+  }
+  ret = ret.map(function (row) {
+    return row.join('');
+  })
+  this.randomStart = ret.join('');
 }
 
 const Game = function (str) {
-  // this.board = str // || new Board(); => '2020'
-  this.board = str.split('').map(function (char) {
+  var board = new Board();
+  this.board = str || board.randomStart;
+  this.board = this.board.split('').map(function (char) {
     return parseInt(char, 10);
   }); // => [0,0,0,0,2,0,2,0,2,2,4,0,0,2,8,2]
   var ret = [];
