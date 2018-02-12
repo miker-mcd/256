@@ -151,8 +151,14 @@ const Game = function (str) {
       }
       newBoard.push(row);
     })
+
+    if (board.join('') === newBoard.join('')) {
+      return board;
+    } else {
+      return spawnBlock(newBoard);
+    }
     // newBoard = newBoard.join('');
-    return spawnBlock(newBoard);
+   // return spawnBlock(newBoard);
   }
 
   function collapseDown(board) {
@@ -225,7 +231,13 @@ const Game = function (str) {
       }
       newBoard.push(row);
     });
-    return spawnBlock(newBoard);
+
+    if (board.join('') === newBoard.join('')) {
+      return board;
+    } else {
+      return spawnBlock(newBoard);
+    }
+
   }
 
   function collapseUp(board) {
