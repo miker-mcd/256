@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var game = new Game('0200202022402222');
+  var game = new Game();
   $(".game").append(game.toString());
   Mousetrap.bind('right', function () {
     game.move('right');
