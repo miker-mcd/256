@@ -49,7 +49,15 @@ const Game = function (str) {
     //    ret.push(this.board.slice(i, i + 4))
     // }
     // this.board = ret;
-    return this.board.join('<br>');
+    // this.board[0].unshift('<p>');
+    var viewBoard = this.board.map(function (row) {
+      return row.map(function (num) {
+        return "<span class='tile'>" + num.toString() + "</span>";
+      }).join('')
+      // return row.join('<span>');
+    })
+    return viewBoard.join('<p>');
+    // return this.board.join('<p>');
   }
 
   function collapseRight (board) {
