@@ -53,21 +53,32 @@ const Game = function (str) {
   }
   this.board = ret;
 
+  function is256(board) {
+    var merged = [].concat.apply([], board);
+
+    return merged.includes(256);
+  };
+
+  function availableMoves(board) {
+    var merged = [].concat.apply([], board);
+
+    return merged.includes(0) || collapseRight(board) === board || collapseDown(board) === board || collapseLeft(board) === board || collapseUp(board) === board;
+  }
+
   this.toString = function () {
-    // var ret = [];
-    // for(let i = 0; i < this.board.length; i += 4) {
-    //    ret.push(this.board.slice(i, i + 4))
-    // }
-    // this.board = ret;
-    // this.board[0].unshift('<p>');
-    var viewBoard = this.board.map(function (row) {
-      return row.map(function (num) {
-        return "<span class='tile'>" + num.toString() + "</span>";
-      }).join('')
-      // return row.join('<span>');
-    })
-    return viewBoard.join('<p>');
-    // return this.board.join('<p>');
+    if (is256(this.board)) {
+      return "<span class='game_win'>'You Win!'</span>";
+    }
+    else if (!(availableMoves(this.board))) {
+      return "<span class='game_lose'>'You Lose, Try Again!'</span>";
+    } else {
+      var viewBoard = this.board.map(function (row) {
+        return row.map(function (num) {
+          return "<span class='tile'>" + num.toString() + "</span>";
+        }).join('')
+      })
+      return viewBoard.join('<p>');
+    }
   }
 
   function collapseRight (board) {
