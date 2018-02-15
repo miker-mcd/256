@@ -66,18 +66,24 @@ const Game = function (str) {
   }
 
   this.toString = function () {
+    var viewBoard = this.board.map(function (row) {
+      return row.map(function (num) {
+        return "<span class='tile'>" + num.toString() + "</span>";
+      }).join('')
+    })
+
     if (is256(this.board)) {
-      return "<span class='game_win'>'You Win!'</span>";
+      return "<span class='overlay'>'You Win!'</span>";
     }
     else if (!(availableMoves(this.board))) {
-      return "<span class='game_lose'>'You Lose, Try Again!'</span>";
+      return "<div class='game-over'>" + viewBoard.join('<p>') + "</div>";
     } else {
-      var viewBoard = this.board.map(function (row) {
-        return row.map(function (num) {
-          return "<span class='tile'>" + num.toString() + "</span>";
-        }).join('')
-      })
-      return viewBoard.join('<p>');
+      // var viewBoard = this.board.map(function (row) {
+      //   return row.map(function (num) {
+      //     return "<span class='tile'>" + num.toString() + "</span>";
+      //   }).join('')
+      // })
+      return "<div class='game-grid'>" + viewBoard.join('<p>') + "</div>";
     }
   }
 
