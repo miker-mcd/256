@@ -73,7 +73,7 @@ const Game = function (str) {
     })
 
     if (is256(this.board)) {
-      return "<span class='overlay'>'You Win!'</span>";
+      return "<div class='game-message'><div class='text'>You Win!</div></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     }
     else if (!(availableMoves(this.board))) {
       return "<div class='game-message'><div class='text'>You Lose, try again!</div></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
