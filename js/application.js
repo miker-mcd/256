@@ -1,9 +1,8 @@
 $(document).ready(function() {
-  var game = new Game('2424424224240242');
+  var game = new Game();
   $(".game").append(game.toString());
   Mousetrap.bind('right', function () {
     game.move('right');
-    // game = new Game(game.move('right'));
     $('.game').html(game.toString());
   });
   Mousetrap.bind('down', function () {

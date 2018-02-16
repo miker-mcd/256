@@ -60,9 +60,7 @@ const Game = function (str) {
   };
 
   function availableMoves(board) {
-    var merged = [].concat.apply([], board);
-
-    return merged.includes(0) || collapseRight(board) === board || collapseDown(board) === board || collapseLeft(board) === board || collapseUp(board) === board;
+    return collapseRight(board).join('') !== board.join('') || collapseDown(board).join('') !== board.join('') || collapseLeft(board).join('') !== board.join('') || collapseUp(board).join('') !== board.join('');
   }
 
   this.toString = function () {
@@ -268,7 +266,6 @@ const Game = function (str) {
     if (direction == 'right') {
       this.board = collapseRight(this.board);
       return this.board;
-      // return collapseRight(this.board);
     }
     else if (direction == 'down') {
       this.board = collapseDown(this.board);
