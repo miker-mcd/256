@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var game = new Game();
+  var game = new Game('2424424224240242');
   $(".game").append(game.toString());
   Mousetrap.bind('right', function () {
     game.move('right');
@@ -16,6 +16,10 @@ $(document).ready(function() {
   })
   Mousetrap.bind('up', function () {
     game.move('up');
+    $('.game').html(game.toString());
+  })
+  $('.button').click(function() {
+    game = new Game();
     $('.game').html(game.toString());
   })
 });
