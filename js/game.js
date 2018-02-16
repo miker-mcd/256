@@ -76,14 +76,14 @@ const Game = function (str) {
       return "<span class='overlay'>'You Win!'</span>";
     }
     else if (!(availableMoves(this.board))) {
-      return "<div class='game-over'>" + viewBoard.join('<p>') + "</div>";
+      return "<div class='game-message'><div class='text'>You Lose, try again!</div></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     } else {
       // var viewBoard = this.board.map(function (row) {
       //   return row.map(function (num) {
       //     return "<span class='tile'>" + num.toString() + "</span>";
       //   }).join('')
       // })
-      return "<div class='game-grid'>" + viewBoard.join('<p>') + "</div>";
+      return "<div class='game-grid'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     }
   }
 

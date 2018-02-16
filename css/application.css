@@ -5,7 +5,8 @@ body {
 }
 
 .container {
-  margin: auto;
+  position: relative;
+  left: 25%;
   width: 50%;
 }
 
@@ -26,24 +27,30 @@ body {
 }
 
 .game {
-  /*height: 200px;*/
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
   background-color: #3FBAC2;
 }
 
 .game-grid {
   text-align: center;
-  padding-top: 15px;
+}
+
+.row {
+
 }
 
 .tile {
+  display: inline-block;
+  text-align: center;
+  width: 65px;
   font-size: 2em;
-  margin: 5px;
+  margin: 0px 5px;
   color: #F5F5F5;
   background-color: #D3D4D8;
-  padding: 5px 15px;
+  padding: 10px 0px;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .footer {
@@ -58,13 +65,15 @@ body {
 
 .game-over {
   text-align: center;
-  padding-top: 15px;
   opacity: 0.3;
+  z-index: -1;
+}
+
+.game-message {
+  text-align: center;
 }
 
 .text {
-  background-color: #4CAF50;
   color: white;
   font-size: 16px;
-  padding: 16px 32px;
 }
