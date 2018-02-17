@@ -1,8 +1,6 @@
 function spawnBlock(board) {
-    // board = board.split('').map(function (char) {
-    //   return parseInt(char, 10);
-    // }) // => [0,0,0,0,0,0,0,4,0,0,4,4,0,2,8,2]
     var blocks = [2, 4];
+
     function insertBlock(board) {
       let randomRow = Math.floor(Math.random() * Math.floor(board.length));
       let randomIndex = Math.floor(Math.random() * Math.floor(board[randomRow].length));
@@ -10,16 +8,14 @@ function spawnBlock(board) {
 
       if (board[randomRow][randomIndex] < 1) {
         board[randomRow].splice(randomIndex, 1, newBlock)
-        // board = board.join('');
         return board;
       }
       else {
-        // board.splice(randomIndex, 1)
         return insertBlock(board)
       }
     }
+
   var newBoard = insertBlock(board);
-  // return newBoard.join('');
   return newBoard;
 }
 
@@ -28,16 +24,20 @@ const Board = function () {
     return parseInt(char, 10);
   });
   var ret = [];
+
   for (let i = 0;i < this.randomStart.length;i += 4) {
     ret.push(this.randomStart.slice(i, i + 4))
   }
+
   var count = 2;
+
   for (let j = 0;j < count;j++) {
     spawnBlock(ret);
   }
+
   ret = ret.map(function (row) {
     return row.join('');
-  })
+  });
   this.randomStart = ret.join('');
 }
 
@@ -46,11 +46,13 @@ const Game = function (str) {
   this.board = str || board.randomStart;
   this.board = this.board.split('').map(function (char) {
     return parseInt(char, 10);
-  }); // => [0,0,0,0,2,0,2,0,2,2,4,0,0,2,8,2]
+  });
   var ret = [];
+
   for(let i = 0; i < this.board.length; i += 4) {
      ret.push(this.board.slice(i, i + 4))
   }
+
   this.board = ret;
 
   function is256(board) {
@@ -71,41 +73,26 @@ const Game = function (str) {
     })
 
     if (is256(this.board)) {
-      return "<div class='game-message'><div class='text'>You Win!</div></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
+      return "<div class='game-message'><div class='text'>You Win!</div><button class='button'>Try Again</button></div><div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     }
     else if (!(availableMoves(this.board))) {
-      return "<div class='game-message'><div class='text'>You Lose, try again!</div></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
+      return  "<div class='game-message'><div class='text'>Game Over!</div><button class='button'>Try Again</button></div><div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     } else {
-      // var viewBoard = this.board.map(function (row) {
-      //   return row.map(function (num) {
-      //     return "<span class='tile'>" + num.toString() + "</span>";
-      //   }).join('')
-      // })
       return "<div class='game-grid'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     }
   }
 
   function collapseRight (board) {
     var newBoard = [];
-
     var splitBoard = [];
-    // for(let i = 0; i < board.length; i += 4) {
-    //    splitBoard.push(board.substr(i, 4))
-    // }
 
-    // splitBoard.forEach(function (row) {
     board.forEach(function (row) {
-      // row = row.split('').map(function (char) {
-      //   return parseInt(char, 10);
-      // }) // => [2,0,2,0]
-
       var filtered = row.filter(function (num) {
         return num > 0;
-      }) // => [2,2]
-
+      });
       var rowSum = filtered.reduce(function (acc, num) {
         return acc + num;
-      }, 0) // => 4
+      }, 0);
 
       if (filtered.length > 3) {
         var check = filtered[0];
@@ -122,9 +109,7 @@ const Game = function (str) {
           filtered.unshift(0);
         }
         row = filtered;
-        // row = filtered.join('');
       }
-
       else if (filtered.length > 2) {
         var check = filtered[0];
         for (let i = 1;i < filtered.length;i++) {
@@ -140,29 +125,22 @@ const Game = function (str) {
         for (let i = 0;i < zerosToAdd;i++) {
           filtered.unshift(0);
         }
-        // row = filtered.join('');
         row = filtered;
       }
-
       else if (filtered.length > 1) {
         if (filtered[0] == filtered[1]) {
           filtered.splice(1, 1, rowSum);
           filtered.shift();
           filtered.unshift(0, 0, 0);
-          // row = filtered.join('');
           row = filtered;
         } else {
           filtered.unshift(0, 0);
-          // row = filtered.join('');
           row = filtered;
         }
       }
-
-      // else if (filtered.length >= 0) {
       else {
         row = [0,0,0];
         row.push(rowSum);
-        // row = row.join('');
       }
       newBoard.push(row);
     })
@@ -172,8 +150,6 @@ const Game = function (str) {
     } else {
       return spawnBlock(newBoard);
     }
-    // newBoard = newBoard.join('');
-   // return spawnBlock(newBoard);
   }
 
   function collapseDown(board) {
@@ -185,13 +161,14 @@ const Game = function (str) {
 
   function collapseLeft(board) {
     var newBoard = [];
+
     board.forEach(function (row) {
       var filtered = row.filter(function (num) {
         return num > 0;
       });
       var rowSum = filtered.reduce(function (sum, num) {
         return sum + num;
-      }, 0)
+      }, 0);
 
       if (filtered.length > 3) {
         var check = filtered[0];
@@ -209,7 +186,6 @@ const Game = function (str) {
         }
         row = filtered;
       }
-
       else if (filtered.length > 2) {
         var check = filtered[0];
         for (let i = 1;i < filtered.length;i++) {
@@ -227,7 +203,6 @@ const Game = function (str) {
         }
         row = filtered;
       }
-
       else if (filtered.length > 1) {
         if (filtered[0] == filtered[1]) {
           filtered.splice(0, 1, rowSum);
@@ -239,7 +214,6 @@ const Game = function (str) {
           row = filtered;
         }
       }
-
       else if (filtered.length >= 0) {
         row = [0,0,0];
         row.unshift(rowSum);
