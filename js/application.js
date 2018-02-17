@@ -17,7 +17,7 @@ $(document).ready(function() {
     game.move('up');
     $('.game').html(game.toString());
   })
-  $('.button').click(function() {
+  $(document).on('click', '.button', function() {
     game = new Game();
     $('.game').html(game.toString());
   })

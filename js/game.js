@@ -71,10 +71,10 @@ const Game = function (str) {
     })
 
     if (is256(this.board)) {
-      return "<div class='game-message'><div class='text'>You Win!</div></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
+      return "<div class='game-message'><div class='text'>You Win!</div><button class='button'>Try Again</button></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     }
     else if (!(availableMoves(this.board))) {
-      return "<div class='game-message'><div class='text'>You Lose, try again!</div></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
+      return  "<div class='game-message'><div class='text'>Game Over!</div><button class='button'>Try Again</button></div>" + "<div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     } else {
       // var viewBoard = this.board.map(function (row) {
       //   return row.map(function (num) {
