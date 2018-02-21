@@ -68,12 +68,16 @@ const Game = function (str) {
   this.toString = function () {
     var viewBoard = this.board.map(function (row) {
       return row.map(function (num) {
-        return "<span class='tile'>" + num.toString() + "</span>";
+        if (num > 0) {
+          return "<span class='tile'>" + num.toString() + "</span>";
+        } else {
+          return "<span class='zero'>" + num.toString() + "</span>";
+        }
       }).join('')
     })
 
     if (is256(this.board)) {
-      return "<div class='game-message'><div class='text'>You Win!</div><button class='button'>Try Again</button></div><div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
+      return "<div class='game-message'><div class='text'>You Win!</div><button class='button'>Play Again</button></div><div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";
     }
     else if (!(availableMoves(this.board))) {
       return  "<div class='game-message'><div class='text'>Game Over!</div><button class='button'>Try Again</button></div><div class='game-over'><p class='row'>" + viewBoard.join("<p class='row'>") + "</div>";

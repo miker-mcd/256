@@ -23,7 +23,7 @@ body {
   border: none;
   border-radius: 10px;
   padding: 10px 15px;
-  margin: 4px 15px;
+  margin: 10px;
   text-align: center;
   cursor: pointer;
   outline: none;
@@ -59,6 +59,19 @@ body {
   box-sizing: border-box;
 }
 
+.zero {
+  display: inline-block;
+  text-align: center;
+  width: 65px;
+  font-size: 2em;
+  margin: 0px 5px;
+  color: #D3D4D8;
+  background-color: #D3D4D8;
+  padding: 10px 0px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
 .footer {
   margin: auto;
   width: 75%;
@@ -87,4 +100,18 @@ body {
 .text {
   color: white;
   font-size: 2em;
+}
+
+.credit a:link, a:visited {
+  font-weight: bold;
+  color: #F5F5F5;
+}
+
+.contact {
+  text-align: center;
+  font-size: 2em;
+}
+
+.contact .icon {
+  margin: 10px;
 }
