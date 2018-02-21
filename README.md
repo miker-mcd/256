@@ -4,7 +4,7 @@
 
 256 is a clone of the game [2048](http://gabrielecirulli.github.io/2048/) showcasing a JavaScript interface independent of a backend and uses keyboard events to control the game play.
 
-![homepage 256](https://www.dropbox.com/s/eu11nz7kz76k1ad/256.png?raw=1)
+![homepage 256](https://www.dropbox.com/s/c0z1kd353s1ly8r/256.png?raw=1)
 
 ## Features
 
