@@ -101,3 +101,17 @@ body {
   color: white;
   font-size: 2em;
 }
+
+.credit a:link, a:visited {
+  font-weight: bold;
+  color: #F5F5F5;
+}
+
+.contact {
+  text-align: center;
+  font-size: 2em;
+}
+
+.contact .icon {
+  margin: 10px;
+}
