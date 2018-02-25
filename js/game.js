@@ -260,7 +260,6 @@ const Game = function (str) {
     filteredAfterBoard.forEach(function (row, index) {
       if (row.length < filteredBeforeBoard[index].length) {
         if (row.length === 3) {
-          var combined;
           for (let i = 0;i < row.length;i++) {
             if (filteredBeforeBoard[index][i] !== row[i]) {
               score += row[i];
@@ -269,12 +268,22 @@ const Game = function (str) {
           }
         }
         else if (row.length === 2) {
-          if (row[0] === filteredBeforeBoard[index][0]) {
-            score += row[1];
+          for (let i = 0;i < row.length;i++) {
+            if (row[i] === filteredBeforeBoard[index][i]) {
+              score += row[1];
+              return score;
+            }
+            else {
+              score += row[i];
+              return score;
+            }
           }
-          else {
-            score += row[0];
-          }
+          // if (row[0] === filteredBeforeBoard[index][0]) {
+          //   score += row[1];
+          // }
+          // else {
+          //   score += row[0];
+          // }
         }
         else if (row.length === 1) {
           score += row[0];
