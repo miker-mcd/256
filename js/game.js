@@ -32,13 +32,13 @@ const Board = function () {
     ret.push(this.randomStart.slice(i, i + 4))
   }
 
-  // var count = 2;
+  var count = 2;
 
-  // for (let j = 0;j < count;j++) {
-  //   spawnBlock(ret);
-  // }
+  for (let j = 0;j < count;j++) {
+    spawnBlock(ret);
+  }
 
-  ret = spawnBlock(ret).map(function (row) {
+  ret = ret.map(function (row) {
     return row.join('');
   });
   this.randomStart = ret.join('');
@@ -70,7 +70,8 @@ const Game = function (str) {
   }
 
   this.toString = function () {
-    var viewBoard = spawnBlock(this.board).map(function (row) {
+    // var viewBoard = spawnBlock(this.board).map(function (row) {
+    var viewBoard = this.board.map(function (row) {
       return row.map(function (num) {
         if (num > 0) {
           return "<span class='tile'>" + num.toString() + "</span>";
@@ -294,23 +295,45 @@ const Game = function (str) {
   }
 
   this.move = function (direction) {
+    var board = this.board;
     if (direction == 'right') {
-      var board = this.board;
       var boardRight = collapseRight(board);
-      console.log(getScore(board, boardRight));
-      this.board = collapseRight(this.board);
+      if (board.join('') === boardRight.join('')) {
+        console.log(getScore(board, boardRight));
+        this.board = collapseRight(this.board);
+      }
+      else {
+        console.log(getScore(board, boardRight));
+        this.board = spawnBlock(collapseRight(this.board));
+      }
+      // this.board = collapseRight(this.board);
       return this.board;
     }
     else if (direction == 'down') {
-      this.board = collapseDown(this.board);
+      var boardDown = collapseDown(board);
+      if (board.join('') === boardDown.join('')) {
+        this.board = collapseDown(this.board);
+      } else {
+        this.board = spawnBlock(collapseDown(this.board));
+      }
       return this.board;
     }
     else if (direction == 'left') {
-      this.board = collapseLeft(this.board);
+      var boardLeft = collapseLeft(board);
+      if (board.join('') === boardLeft.join('')) {
+        this.board = collapseLeft(this.board);
+      } else {
+        this.board = spawnBlock(collapseLeft(this.board));
+      }
       return this.board;
     }
     else if (direction == 'up') {
-      this.board = collapseUp(this.board);
+      var boardUp = collapseUp(board);
+      if (board.join('') === boardUp.join('')) {
+        this.board = collapseUp(this.board);
+      } else {
+        this.board = spawnBlock(collapseUp(this.board));
+      }
       return this.board;
     }
   }
