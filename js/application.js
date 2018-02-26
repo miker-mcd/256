@@ -4,6 +4,7 @@ $(document).ready(function() {
   Mousetrap.bind('right', function () {
     game.move('right');
     $('.game').html(game.toString());
+    $('.score').html(game.updateScore());
   });
   Mousetrap.bind('down', function () {
     game.move('down');
@@ -20,5 +21,6 @@ $(document).ready(function() {
   $(document).on('click', '.button', function() {
     game = new Game();
     $('.game').html(game.toString());
+    $('.score').html(game.updateScore());
   })
 });

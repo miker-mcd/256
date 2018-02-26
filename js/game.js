@@ -338,4 +338,8 @@ const Game = function (str) {
     }
   }
 
+  this.updateScore = function () {
+    return score.toString();
+  }
+
 }
