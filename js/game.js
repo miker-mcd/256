@@ -269,14 +269,21 @@ const Game = function (str) {
           }
         }
         else if (row.length === 2) {
-          for (let i = 0;i < row.length;i++) {
-            if (row[i] === filteredBeforeBoard[index][i]) {
-              score += row[1];
-              return score;
-            }
-            else {
-              score += row[i];
-              return score;
+          if (filteredBeforeBoard[index].length === 4) {
+            score += filteredBeforeBoard[index].reduce(function (sum, num) {
+              return sum + num;
+            });
+            return score;
+          } else {
+            for (let i = 0;i < row.length;i++) {
+              if (row[i] === filteredBeforeBoard[index][i]) {
+                score += row[1];
+                return score;
+              }
+              else {
+                score += row[i];
+                return score;
+              }
             }
           }
           // if (row[0] === filteredBeforeBoard[index][0]) {
@@ -288,6 +295,7 @@ const Game = function (str) {
         }
         else if (row.length === 1) {
           score += row[0];
+          return score;
         }
       }
     })
@@ -299,21 +307,23 @@ const Game = function (str) {
     if (direction == 'right') {
       var boardRight = collapseRight(board);
       if (board.join('') === boardRight.join('')) {
-        console.log(getScore(board, boardRight));
+        getScore(board, boardRight);
         this.board = collapseRight(this.board);
       }
       else {
-        console.log(getScore(board, boardRight));
+        getScore(board, boardRight);
         this.board = spawnBlock(collapseRight(this.board));
       }
-      // this.board = collapseRight(this.board);
       return this.board;
     }
     else if (direction == 'down') {
-      var boardDown = collapseDown(board);
+      board = _.zip.apply(_, board);
+      var boardDown = collapseRight(board);
       if (board.join('') === boardDown.join('')) {
+        getScore(board, boardDown);
         this.board = collapseDown(this.board);
       } else {
+        getScore(board, boardDown);
         this.board = spawnBlock(collapseDown(this.board));
       }
       return this.board;
@@ -321,17 +331,22 @@ const Game = function (str) {
     else if (direction == 'left') {
       var boardLeft = collapseLeft(board);
       if (board.join('') === boardLeft.join('')) {
+        getScore(board, boardLeft);
         this.board = collapseLeft(this.board);
       } else {
+        getScore(board, boardLeft);
         this.board = spawnBlock(collapseLeft(this.board));
       }
       return this.board;
     }
     else if (direction == 'up') {
-      var boardUp = collapseUp(board);
+      board = _.zip.apply(_, board);
+      var boardUp = collapseLeft(board);
       if (board.join('') === boardUp.join('')) {
+        getScore(board, boardUp);
         this.board = collapseUp(this.board);
       } else {
+        getScore(board, boardUp);
         this.board = spawnBlock(collapseUp(this.board));
       }
       return this.board;
