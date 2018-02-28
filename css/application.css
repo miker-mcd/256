@@ -41,6 +41,10 @@ body {
   font-size: 2em;
 }
 
+.intro {
+  margin-top: 0;
+}
+
 .button {
   background-color: #393E46;
   color: white;

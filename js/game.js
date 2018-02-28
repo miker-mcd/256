@@ -1,5 +1,4 @@
 function spawnBlock(board) {
-  // debugger
     var blocks = [2, 4];
     var oldBoard = board;
 
