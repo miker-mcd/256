@@ -16,6 +16,35 @@ body {
   font-size: 1em;
 }
 
+.main_header {
+  display: inline-block;
+  width: 40%;
+}
+
+.score_container {
+  display: inline-block;
+  background-color: #3FBAC2;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  width: 85px;
+  box-sizing: border-box;
+}
+
+.score_container h3 {
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 1em;
+}
+
+.score {
+  font-size: 2em;
+}
+
+.intro {
+  margin-top: 0;
+}
+
 .button {
   background-color: #393E46;
   color: white;

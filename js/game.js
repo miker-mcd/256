@@ -1,22 +1,24 @@
 function spawnBlock(board) {
     var blocks = [2, 4];
+    var oldBoard = board;
 
-    function insertBlock(board) {
-      let randomRow = Math.floor(Math.random() * Math.floor(board.length));
-      let randomIndex = Math.floor(Math.random() * Math.floor(board[randomRow].length));
+    function insertBlock() {
+      let randomRow = Math.floor(Math.random() * Math.floor(oldBoard.length));
+      let randomIndex = Math.floor(Math.random() * Math.floor(oldBoard[randomRow].length));
       let newBlock = blocks[(Math.floor(Math.random() * Math.floor(2)))];
 
-      if (board[randomRow][randomIndex] < 1) {
-        board[randomRow].splice(randomIndex, 1, newBlock)
-        return board;
+      if (oldBoard[randomRow][randomIndex] < 1) {
+        oldBoard[randomRow].splice(randomIndex, 1, newBlock)
+        return oldBoard;
       }
       else {
-        return insertBlock(board)
+        return insertBlock();
       }
     }
 
-  var newBoard = insertBlock(board);
-  return newBoard;
+  // var newBoard = insertBlock();
+  // return newBoard;
+  return insertBlock();
 }
 
 const Board = function () {
@@ -43,6 +45,7 @@ const Board = function () {
 
 const Game = function (str) {
   var board = new Board();
+  var score = 0;
   this.board = str || board.randomStart;
   this.board = this.board.split('').map(function (char) {
     return parseInt(char, 10);
@@ -66,6 +69,7 @@ const Game = function (str) {
   }
 
   this.toString = function () {
+    // var viewBoard = spawnBlock(this.board).map(function (row) {
     var viewBoard = this.board.map(function (row) {
       return row.map(function (num) {
         if (num > 0) {
@@ -152,7 +156,8 @@ const Game = function (str) {
     if (board.join('') === newBoard.join('')) {
       return board;
     } else {
-      return spawnBlock(newBoard);
+      return newBoard;
+      // return spawnBlock(newBoard);
     }
   }
 
@@ -228,7 +233,8 @@ const Game = function (str) {
     if (board.join('') === newBoard.join('')) {
       return board;
     } else {
-      return spawnBlock(newBoard);
+      return newBoard;
+      // return spawnBlock(newBoard);
     }
 
   }
@@ -240,23 +246,114 @@ const Game = function (str) {
     return board;
   };
 
+  function getScore(beforeMove, afterMove) {
+    var filteredBeforeBoard = beforeMove.map(function (row) {
+      return row.filter(function (num) {
+        return num > 0;
+      });
+    });
+    var filteredAfterBoard = afterMove.map(function (row) {
+      return row.filter(function (num) {
+        return num > 0;
+      });
+    });
+    filteredAfterBoard.forEach(function (row, index) {
+      if (row.length < filteredBeforeBoard[index].length) {
+        if (row.length === 3) {
+          for (let i = 0;i < row.length;i++) {
+            if (filteredBeforeBoard[index][i] !== row[i]) {
+              score += row[i];
+              return score;
+            }
+          }
+        }
+        else if (row.length === 2) {
+          if (filteredBeforeBoard[index].length === 4) {
+            score += filteredBeforeBoard[index].reduce(function (sum, num) {
+              return sum + num;
+            });
+            return score;
+          } else {
+            for (let i = 0;i < row.length;i++) {
+              if (row[i] === filteredBeforeBoard[index][i]) {
+                score += row[1];
+                return score;
+              }
+              else {
+                score += row[i];
+                return score;
+              }
+            }
+          }
+          // if (row[0] === filteredBeforeBoard[index][0]) {
+          //   score += row[1];
+          // }
+          // else {
+          //   score += row[0];
+          // }
+        }
+        else if (row.length === 1) {
+          score += row[0];
+          return score;
+        }
+      }
+    })
+    return score;
+  }
+
   this.move = function (direction) {
+    var board = this.board;
     if (direction == 'right') {
-      this.board = collapseRight(this.board);
+      var boardRight = collapseRight(board);
+      if (board.join('') === boardRight.join('')) {
+        getScore(board, boardRight);
+        this.board = collapseRight(this.board);
+      }
+      else {
+        getScore(board, boardRight);
+        this.board = spawnBlock(collapseRight(this.board));
+      }
       return this.board;
     }
     else if (direction == 'down') {
-      this.board = collapseDown(this.board);
+      board = _.zip.apply(_, board);
+      var boardDown = collapseRight(board);
+      if (board.join('') === boardDown.join('')) {
+        getScore(board, boardDown);
+        this.board = collapseDown(this.board);
+      } else {
+        getScore(board, boardDown);
+        this.board = spawnBlock(collapseDown(this.board));
+      }
       return this.board;
     }
     else if (direction == 'left') {
-      this.board = collapseLeft(this.board);
+      var boardLeft = collapseLeft(board);
+      if (board.join('') === boardLeft.join('')) {
+        getScore(board, boardLeft);
+        this.board = collapseLeft(this.board);
+      } else {
+        getScore(board, boardLeft);
+        this.board = spawnBlock(collapseLeft(this.board));
+      }
       return this.board;
     }
     else if (direction == 'up') {
-      this.board = collapseUp(this.board);
+      board = _.zip.apply(_, board);
+      var boardUp = collapseLeft(board);
+      if (board.join('') === boardUp.join('')) {
+        getScore(board, boardUp);
+        this.board = collapseUp(this.board);
+      } else {
+        getScore(board, boardUp);
+        this.board = spawnBlock(collapseUp(this.board));
+      }
       return this.board;
     }
+  }
+
+  this.updateScore = function () {
+    return score.toString();
   }
 
 }
