@@ -14,7 +14,7 @@ $(document).ready(function() {
   }
 
   if (savedScore != 'undefined' || savedScore != 'null') {
-    $('.score').html(savedScore);
+    $('.score').html(game.updateScore(savedScore));
   } else {
     $('.score').html(game.updateScore());
   }

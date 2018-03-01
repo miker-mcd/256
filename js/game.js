@@ -352,7 +352,8 @@ const Game = function (str) {
     }
   }
 
-  this.updateScore = function () {
+  this.updateScore = function (str) {
+    score = parseInt(str, 10) || score;
     return score.toString();
   }
 
