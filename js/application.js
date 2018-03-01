@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var game = new Game();
+  var game;
   var savedGame = localStorage.getItem('game');
   var savedScore = localStorage.getItem('score');
   if (savedGame != 'undefined' || savedGame != 'null') {
@@ -9,13 +9,17 @@ $(document).ready(function() {
       return $(tile).text();
     });
     game = new Game(tiles.join(''));
+  } else {
+    game = new Game();
   }
-  if (savedScore != 'undefined' || savedGame != 'null') {
+
+  if (savedScore != 'undefined' || savedScore != 'null') {
     $('.score').html(savedScore);
   } else {
     $('.score').html(game.updateScore());
   }
-  $(".game").append(game.toString());
+
+  $(".game").html(game.toString());
   Mousetrap.bind('right', function () {
     game.move('right');
     $('.game').html(game.toString());
