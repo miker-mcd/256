@@ -5,10 +5,10 @@ $(document).ready(function() {
   if (savedGame != 'undefined' || savedGame != 'null') {
     var el = $('<div></div>');
     el.html(savedGame);
-    var tiles = $.map(el, function (tile) {
+    var tiles = $.map($('span', el), function (tile) {
       return $(tile).text();
     });
-    game = new Game(tiles.join(''));
+    game = new Game(tiles.join(','));
   } else {
     game = new Game();
   }
