@@ -38,16 +38,16 @@ const Board = function () {
   }
 
   ret = ret.map(function (row) {
-    return row.join('');
+    return row.join(',');
   });
-  this.randomStart = ret.join('');
+  this.randomStart = ret.join(',');
 }
 
 const Game = function (str) {
   var board = new Board();
   var score = 0;
   this.board = str || board.randomStart;
-  this.board = this.board.split('').map(function (char) {
+  this.board = this.board.split(',').map(function (char) {
     return parseInt(char, 10);
   });
   var ret = [];
@@ -352,7 +352,8 @@ const Game = function (str) {
     }
   }
 
-  this.updateScore = function () {
+  this.updateScore = function (str) {
+    score = parseInt(str, 10) || score;
     return score.toString();
   }
 
